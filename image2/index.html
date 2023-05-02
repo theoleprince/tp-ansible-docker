@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+<body>
+  <div id="top" align="center">
+    <div id="div-01">Voici div-01</div>
+    <div id="div-02">Voici div-02</div>
+    <div id="div-03">Voici div-03</div>
+
+     
+<div id="trtt" class="editable" contenteditable="true" style='overflow:auto;width:400px;height:140px'>
+  le joueur de football a réalisé un très beau tir. Ce tir, est venu se loger en pleine lucarne, le gardien a rien pu faire. c'est un tir exceptionnel que le gardien ne pouvait arreter.
+</div>
+<input id='bb' type='text'>
+  </div>
+    <script>
+
+function syno_c(conteneur, lui) { //la fonction constructeur
+  this.conteneur = document.getElementById(conteneur);
+  this.nom = lui;
+}
+syno_c.prototype.dina = function (recherche) {
+  var txt = this.conteneur.textContent;
+  this.conteneur.innerHTML = '';
+  var tbphrase = txt.split(' ');
+  var pvpv = [
+  ];
+  for (var i = 0; i < tbphrase.length; i++) {
+    if (tbphrase[i].indexOf('.', tbphrase[i].length - 1) != - 1 || tbphrase[i].indexOf(',', 0) != - 1 || tbphrase[i].indexOf('?', 0) != - 1 || tbphrase[i].indexOf('!', 0) != - 1 || tbphrase[i].indexOf(';', 0) != - 1) {
+      var rev = tbphrase[i].substr(tbphrase[i].length - 1, 1);
+      tbphrase[i] = tbphrase[i].substr(0, tbphrase[i].length - 1);
+    } 
+    else {
+      var rev = null;
+    }
+    pvpv.push(rev);
+    var mot = tbphrase[i]
+    var posi = tbphrase[i].length - (tbphrase[i].length - recherche.length - 1)
+    if (tbphrase[i].lastIndexOf(recherche, 0) != - 1 && recherche != '') {
+      tbphrase[i] = '<span onclick="' + this.nom + '.choix(this,event,\'' + mot + '\')">' + tbphrase[i] + '</span>';
+    }
+  }
+  for (var i = 0; i < tbphrase.length; i++) {
+    if (pvpv[i] != null) {
+      tbphrase[i] += pvpv[i];
+    }
+  }
+  var phrase = tbphrase.join(' ');
+  this.conteneur.innerHTML = phrase;
+}
+syno_c.prototype.choix = function (lui, e, mot) {
+  lui.previousSibling.textContent += lui.textContent;
+  lui.parentNode.removeChild(lui);
+}
+function syno_instance() { //instanciation de l'objet.
+  is = new syno_c('trtt', 'is');
+  document.getElementById('bb').onkeyup = function () {
+    is.dina(this.value)
+  }
+}
+window.addEventListener('load', syno_instance, false);
+
+      var d = document.getElementById("top");
+      var d_nested = document.getElementById("div-02");
+      d_nested.remove();
+
+      let parent = d.parentNode
+      var newdiv = document.createElement('div');
+      newdiv.id = 'nested';
+      newdiv.innerHTML = '<p>ertertert</p>';
+      parent.insertBefore(newdiv, d)
+
+
+    </script>
+</body>
+</html>
