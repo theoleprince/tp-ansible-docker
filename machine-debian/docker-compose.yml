@@ -1,0 +1,39 @@
+version: '3'
+services:
+  ubuntu-ansible:
+    build: 
+      context: ./machine-ansible
+      dockerfile: Dockerfile
+    restart: always
+    # ports:
+    #    - "2224:22"
+    networks:
+      ansible_network:
+        ipv4_address: 10.5.0.10
+  ubuntu-host1:
+    build: 
+      context: ./machine-host
+      dockerfile: Dockerfile
+    restart: always
+    # ports:
+    #    - "2224:22"
+    networks:
+      ansible_network:
+        ipv4_address: 10.5.0.11
+  ubuntu-host2:
+    build: 
+      context: ./machine-host-2
+      dockerfile: Dockerfile
+    restart: always
+    # ports:
+    #    - "2224:22"
+    networks:
+      ansible_network:
+        ipv4_address: 10.5.0.12
+networks:
+  ansible_network:
+    driver: bridge
+    name: ansible_network
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
